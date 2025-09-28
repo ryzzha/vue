@@ -1,30 +1,55 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from "vue"
+import NoteForm from "./components/NoteForm.vue"
+import Notes from "./components/Notes.vue"
+
+export interface INote {
+  id: string
+  text: string
+  priority: "low" | "medium" | "high"
+  date: string
+}
+
+const notes = ref<INote[]>([])
+
+const addNote = (note: INote) => {
+  notes.value.push(note)
+}
+
+const delNote = (id: string) => {
+  console.log("del note in app")
+  notes.value = notes.value.filter(note => note.id !== id)
+}
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="container">
+    <h1>📒notes</h1>
+
+    <NoteForm @add-note="addNote" />
+
+    <Notes v-if="notes.length > 0" :notes="notes" @del-note="delNote" />
+
+    <span v-else >empty</span>
+
+    <hr />
+
+    <span>total: {{ notes.length }}</span>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fafafa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 </style>
