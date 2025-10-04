@@ -21,9 +21,24 @@ const delNote = (id: string) => {
   notes.value = notes.value.filter(note => note.id !== id)
 }
 
+// import { useCounterStore } from '../stores/counter'
+// const counter = useCounterStore()
+
+// import { useQuery } from '@tanstack/vue-query'
+
+// const { data, isLoading, error } = useQuery({
+//   queryKey: ['todos'],
+//   queryFn: () => fetch('https://jsonplaceholder.typicode.com/todos').then(r => r.json())
+// })
+
 </script>
 
 <template>
+  <nav>
+    <RouterLink to="/">Home</RouterLink>
+    <!-- <RouterLink to="/about">About</RouterLink> -->
+  </nav>
+  <!-- <RouterView /> -->
   <div class="container">
     <h1>📒notes</h1>
 

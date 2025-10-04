@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 
 // ---- reactive state ----
 const count = ref(0)
@@ -9,7 +9,7 @@ const user = reactive({ name: 'Ira', age: 25 })
 const double = computed(() => count.value * 2)
 
 // ---- watch ----
-watch(count, (newVal, oldVal) => {
+watch(count, (newVal,   ) => {
   console.log('Count changed', newVal)
 })
 
@@ -17,6 +17,11 @@ watch(count, (newVal, oldVal) => {
 function increment() {
   count.value++
 }
+
+// mounted
+onMounted(() => {
+  increment()
+})
 </script>
 
 <template>
