@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import type { INote } from "../App.vue"
+import type { INote } from "../types"
 
 const emit = defineEmits<{
-  (e: "del-note", id: string): void
+  (e: "get-note", id: string): void
 }>()
 
 defineProps<{
-  notes: INote[]
+  notes: INote[] | undefined
 }>()
 
-const delNote = (id: string) => {
-    console.log("del note in notes component")
-    emit("del-note", id)
+const getNote = (id: string) => {
+  emit("get-note", id)
 }
 
 </script>
 
 <template>
-  <ul class="notes">
+  <span v-if="notes?.length == 0">empty</span>
+  <ul v-else class="notes">
     <li
       v-for="note in notes"
       :key="note.id"
       :class="note.priority"
+      @click="getNote(note.id)"
     >
       <strong>[{{ note.priority }}]</strong>
       {{ note.text }}
       <em>({{ note.date }})</em>
-      <button @click="delNote(note.id)">del</button>
     </li>
   </ul>
 </template>

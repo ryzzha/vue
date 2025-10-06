@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { INote } from "../App.vue"
+import type { INote } from "../types"
 
 const emit = defineEmits<{
   (e: "add-note", note: INote): void
